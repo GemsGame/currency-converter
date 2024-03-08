@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
 import Select from './components/common/Select';
 import Input from './components/common/Input';
-
+import Radio from './components/common/Radio';
 
 function App(): React.JSX.Element {
-
+  const [value, setValue] = useState<string>();
   return (
     <SafeAreaView>
-     <Select/>
-     <Input/>
+      <Select />
+      <Input onChange={setValue} value={''} />
+      <Input onChange={setValue} value={''} placeholder='USD'/>
+      <Input onChange={setValue} value={''} placeholder='USD' icon={require("./assets/images/tabler_search.png")}/>
+      <Radio/>
     </SafeAreaView>
   );
 }

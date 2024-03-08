@@ -1,43 +1,33 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#DEDEDE',
+    height: 16,
+    width: 16,
+    borderColor: 'black',
     borderRadius: 8,
-    display: 'flex',
-    flexDirection: "row",
-    justifyContent: 'space-between',
+    borderWidth: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 12,
-    paddingRight: 16,
-    paddingBottom: 12,
-    paddingLeft: 16,
-    width: 130,
   },
-  buttonText: {
-    fontSize: 16,
-    fontFamily: 'Inter',
-    color: '#000000'
+  buttonBg: {
+    backgroundColor: 'black',
+    height: 8,
+    width: 8,
+    borderRadius: 4,
   },
 });
 
-
-const Select = (): React.JSX.Element => {
+const Radio = (): React.JSX.Element => {
+  const [active, setActive] = useState(false);
   return (
-    <View style={styles.button}>
-      <View>
-        <Image source={require("../../assets/images/flag.png")}/>
+    <TouchableOpacity onPress={e => setActive(!active)}>
+      <View style={styles.button}>
+        {active && <View style={styles.buttonBg}></View>}
       </View>
-      <Text style={styles.buttonText}>
-        USD
-      </Text>
-      <View>
-        <Image source={require("../../assets/images/tabler_chevron-down.png")} />
-      </View>
-    </View>
- );
+    </TouchableOpacity>
+  );
 };
 
-
-export default Select;
+export default Radio;

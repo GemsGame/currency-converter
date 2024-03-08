@@ -1,36 +1,55 @@
-import React from 'react';
-import {View, StyleSheet, TextInput, ImageSourcePropType} from 'react-native';
-
-const styles = StyleSheet.create({
-  input: {
-    borderWidth: 1,
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderRadius: 8,
-    fontSize: 16,
-    fontFamily: 'Inter',
-    color: '#000000',
-  },
-});
+import React, {Dispatch, SetStateAction} from 'react';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  ImageSourcePropType,
+  Image,
+} from 'react-native';
 
 type InputTypes = {
   value: string;
-  onChangeText: () => {};
+  onChange: Dispatch<SetStateAction<string | undefined>>;
   placeholder?: string;
-  icon?: ImageSourcePropType
+  icon?: ImageSourcePropType;
 };
 
+const Input = ({
+  value,
+  onChange,
+  placeholder,
+  icon,
+}: InputTypes): React.JSX.Element => {
+  const styles = StyleSheet.create({
+    input: {
+      borderWidth: 1,
+      paddingTop: 12,
+      paddingBottom: 12,
+      paddingLeft: icon ? 40 : 16,
+      paddingRight: 16,
+      borderRadius: 8,
+      fontSize: 16,
+      fontFamily: 'Inter',
+      color: '#000000',
+    },
 
-const Input = (
-  { value, onChangeText, placeholder }: InputTypes,
-): React.JSX.Element => {
+    icon: {
+      position: 'relative',
+      top: 37,
+      left: 15,
+    },
+  });
+
   return (
     <View>
+      {icon && (
+        <View style={styles.icon}>
+          <Image source={icon} />
+        </View>
+      )}
       <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
+        onChange={e => onChange(e.nativeEvent.text)}
         value={value}
         placeholder={placeholder}
       />
