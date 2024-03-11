@@ -1,5 +1,6 @@
+import { NavigationAction, NavigationState } from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
@@ -22,19 +23,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const Select = (): React.JSX.Element => {
+const Select = ({ onPress }: { onPress: any}): React.JSX.Element => {
   return (
-    <View style={styles.button}>
-      <View>
-        <Image source={require('../../assets/images/flag.png')} />
+    <Pressable onPress={onPress}>
+      <View style={styles.button}>
+        <View>
+          <Image source={require('../../assets/images/flag.png')} />
+        </View>
+        <Text style={styles.buttonText}>USD</Text>
+        <View>
+          <Image
+            source={require('../../assets/images/tabler_chevron-down.png')}
+          />
+        </View>
       </View>
-      <Text style={styles.buttonText}>USD</Text>
-      <View>
-        <Image
-          source={require('../../assets/images/tabler_chevron-down.png')}
-        />
-      </View>
-    </View>
+    </Pressable>
   );
 };
 

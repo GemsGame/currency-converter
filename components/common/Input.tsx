@@ -23,14 +23,15 @@ const Input = ({
   const styles = StyleSheet.create({
     input: {
       borderWidth: 1,
-      paddingTop: 12,
-      paddingBottom: 12,
+      paddingTop: 9,
+      paddingBottom:9,
       paddingLeft: icon ? 40 : 16,
       paddingRight: 16,
       borderRadius: 8,
       fontSize: 16,
       fontFamily: 'Inter',
       color: '#000000',
+      backgroundColor: "#FFFFFF"
     },
 
     icon: {

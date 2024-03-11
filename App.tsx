@@ -1,42 +1,19 @@
-import React, {useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
-import Select from './components/common/Select';
-import Input from './components/common/Input';
-import Radio from './components/common/Radio';
+import React from 'react';
+import { ConversionScreen } from './components/screens/ConversionScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { SelectScreen } from './components/screens/SelectScreen';
+
+const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const [value, setValue] = useState<string>();
   return (
-    <SafeAreaView>
-      <Select />
-      <Input onChange={setValue} value={''} />
-      <Input onChange={setValue} value={''} placeholder='USD'/>
-      <Input onChange={setValue} value={''} placeholder='USD' icon={require("./assets/images/tabler_search.png")}/>
-      <Radio/>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={ConversionScreen} />
+        <Stack.Screen name="Currency Select" component={SelectScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
 export default App;
