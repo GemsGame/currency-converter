@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 export const SelectScreen = () => {
   return (
     <View style={styles.page}>
-      
+      <Input value="0" onChange={() => { }} />
     </View>
   );
 };
