@@ -1,5 +1,5 @@
 ![Alt text](image.png)
-Requirements:
+##### Requirements:
 1. User Interface:
 * Replicate the provided mockups as closely as possible.
 * Implement a currency selection screen with a searchable list displaying currency codes and
@@ -19,11 +19,14 @@ known rates.
 * Handle API errors gracefully and display user-friendly error messages.
 4. Performance:
 * Optimize the app for performance, especially the currency selection list.
-Deliverables:
+
+##### Deliverables:
 1. Source code pushed to a Git repository (e.g., GitHub, GitLab).
 2. Documentation on how to run the application locally.
 3. A brief explanation of the app architecture and any third-party libraries used.
-Evaluation Criteria:
+
+##### Evaluation Criteria:
+
 * Adherence to the design mockups and requirements.
 * Code quality, including readability and adherence to TypeScript best practices.
 * App performance and handling of edge cases.

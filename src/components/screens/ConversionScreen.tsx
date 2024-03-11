@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Select from '../common/Select';
 import Input from '../common/Input';
 import { useNavigation } from '@react-navigation/native';
+import List from '../common/List';
 const styles = StyleSheet.create({
   row: {
     justifyContent: 'space-between',
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
 export const ConversionScreen = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.page}>
+    <SafeAreaView style={styles.page}>
       <View style={styles.row}>
         <View style={styles.button}>
           <Text style={styles.label}>From:</Text>
@@ -66,6 +67,6 @@ export const ConversionScreen = () => {
         <Text style={styles.subtitle}>1$ =</Text>
         <Text style={styles.title}>3,98 zl</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

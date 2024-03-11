@@ -1,8 +1,9 @@
 import React from 'react';
-import { ConversionScreen } from './components/screens/ConversionScreen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { SelectScreen } from './components/screens/SelectScreen';
+import { ConversionScreen } from './src/components/screens/ConversionScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SelectScreen } from './src/components/screens/SelectScreen';
+
 
 const Stack = createNativeStackNavigator();
 
