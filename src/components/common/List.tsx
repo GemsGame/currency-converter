@@ -1,29 +1,96 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import currencies from "../../configs/currencies.json";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Image,
+} from 'react-native';
+import currencies from '../../configs/currencies.json';
+import {IListItem} from '../../interface/IListItem';
+import Radio from './Radio';
+const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
+
+  list: {
+    height: height - 150,
+  },
   item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    backgroundColor: '#E7E7E7'
+    backgroundColor: '#E7E7E7',
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'space-between',
+    padding: 16,
   },
   contentContainerStyle: {
-    borderRadius: 8, 
-    overflow: 'hidden'
-  }
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+
+  nameBlock: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+  },
+  buttonBlock: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  name: {
+    fontSize: 16,
+    color: 'black',
+  },
+});
+
+const MemoizedItem = React.memo(({item}: {item: IListItem}) => {
+  return (
+    <View style={styles.item}>
+      <View style={styles.nameBlock}>
+        <View>
+          <View>
+            <Image
+              source={{uri: item.flagSrc}}
+              style={{width: 30, height: 20}}
+            />
+          </View>
+        </View>
+        <View>
+          <Text style={styles.name}>
+            {item.code + " - "} 
+            {(() => {
+              if (item.name.length > 30) {
+                return item.name.slice(0, 25) + '...';
+              } else {
+                return item.name;
+              }
+            })()}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.buttonBlock}>
+        <Radio />
+      </View>
+    </View>
+  );
 });
 
 const List = () => {
   return (
     <View style={styles.container}>
-      <FlatList
-        data={currencies}
-        contentContainerStyle={styles.contentContainerStyle}
-        renderItem={({ item }) => <View style = {styles.item}><Text>{item.code}</Text></View>}
-      />
+      <View style={styles.list}>
+        <FlatList
+          data={currencies}
+          contentContainerStyle={styles.contentContainerStyle}
+          renderItem={({item}) => <MemoizedItem item={item} />}
+        />
+      </View>
     </View>
   );
 };

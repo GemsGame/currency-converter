@@ -1,6 +1,6 @@
-import { NavigationAction, NavigationState } from '@react-navigation/native';
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import { IListItem } from '../../interface/IListItem';
 
 const styles = StyleSheet.create({
   button: {
@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Select = ({ onPress }: { onPress: any}): React.JSX.Element => {
+const Select = ({ onPress, item }: {onPress: any, item:IListItem }): React.JSX.Element => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.button}>
         <View>
-          <Image source={require('../../assets/images/flag.png')} />
+          <Image source={{ uri: item.flagSrc }} style={{ width: 30, height: 20 }} />
         </View>
-        <Text style={styles.buttonText}>USD</Text>
+        <Text style={styles.buttonText}>{item.code}</Text>
         <View>
           <Image
             source={require('../../assets/images/tabler_chevron-down.png')}

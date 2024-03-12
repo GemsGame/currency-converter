@@ -1,18 +1,6 @@
-import React, {Dispatch, SetStateAction} from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  ImageSourcePropType,
-  Image,
-} from 'react-native';
-
-type InputTypes = {
-  value: string;
-  onChange: Dispatch<SetStateAction<string | undefined>>;
-  placeholder?: string;
-  icon?: ImageSourcePropType;
-};
+import React from 'react';
+import {View, StyleSheet, TextInput, Image} from 'react-native';
+import {InputTypes} from '../../interface/InputTypes';
 
 const Input = ({
   value,
@@ -24,14 +12,14 @@ const Input = ({
     input: {
       borderWidth: 1,
       paddingTop: 9,
-      paddingBottom:9,
+      paddingBottom: 9,
       paddingLeft: icon ? 40 : 16,
       paddingRight: 16,
       borderRadius: 8,
       fontSize: 16,
       fontFamily: 'Inter',
       color: '#000000',
-      backgroundColor: "#FFFFFF"
+      backgroundColor: '#FFFFFF',
     },
 
     icon: {

@@ -3,52 +3,20 @@ import {
   persistStore,
   persistReducer,
 } from 'redux-persist';
-import settingsReducer from './slices/settingsSlice';
-import userReducer from './slices/userSlice';
-import messagesReducer from './slices/messagesSlice';
-import purchasesReducer from './slices/purchasesSlice';
+import settingsReducer from './slices/conversionSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-//AsyncStorage.clear();
-
-const settingsPersistConfig = {
-  key: 'settings',
+const conversionPersistConfig = {
+  key: 'conversion',
   storage: AsyncStorage,
-  timeout: 0,
-};
-const userPersistConfig = {
-  key: 'user',
-  storage: AsyncStorage,
-  timeout: 0,
-};
-const messagesPersistConfig = {
-  key: 'messages',
-  storage: AsyncStorage,
-  blacklist: ['loading'],
-  timeout: 0,
-};
-
-const purchasesPersistConfig = {
-  key: 'purchases',
-  storage: AsyncStorage,
-  blacklist: ['subscriptions', 'products'],
-  timeout: 0,
 };
 
 const rootReducer = combineReducers({
-  settings: persistReducer(settingsPersistConfig, settingsReducer),
-  user: persistReducer(userPersistConfig, userReducer),
-  messages: persistReducer(messagesPersistConfig, messagesReducer),
-  purchases: persistReducer(purchasesPersistConfig, purchasesReducer),
+  conversion: persistReducer(conversionPersistConfig, settingsReducer),
 });
-
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
 });
 
 export const persistor = persistStore(store);

@@ -2,13 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Select from '../common/Select';
 import Input from '../common/Input';
-import { useNavigation } from '@react-navigation/native';
-import List from '../common/List';
+import { useNavigation, ParamListBase, NavigationProp } from '@react-navigation/native';
+import IconButton from '../common/IconButton';
+import currencies from '../../configs/currencies.json';
+
 const styles = StyleSheet.create({
   row: {
     justifyContent: 'space-between',
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center'
   },
 
   label: {
@@ -44,17 +47,22 @@ const styles = StyleSheet.create({
 });
 
 export const ConversionScreen = () => {
-  const navigation = useNavigation();
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
+
   return (
     <SafeAreaView style={styles.page}>
       <View style={styles.row}>
         <View style={styles.button}>
           <Text style={styles.label}>From:</Text>
-          <Select onPress={() => navigation.navigate("Currency Select" as never)} />
+          <Select onPress={() => navigation.navigate("Currency Select", { direction: 'from', item: 0 })} item={currencies[0]}/>
+        </View>
+        <View style={styles.button}>
+          <Text style={styles.label}></Text>
+          <IconButton onPress={() => {}}/>
         </View>
         <View style={styles.button}>
           <Text style={styles.label}>To:</Text>
-          <Select onPress={() => navigation.navigate("Currency Select" as never)} />
+          <Select onPress={() => navigation.navigate("Currency Select", { direction: 'to', item: 1 })} item={currencies[1]} />
         </View>
       </View>
       <View style={styles.row}>
