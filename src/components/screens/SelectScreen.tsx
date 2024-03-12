@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import Input from '../common/Input';
 import List from '../common/List';
-import { Route } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   page: {
@@ -13,11 +12,13 @@ const styles = StyleSheet.create({
 });
 
 export const SelectScreen = ({ route }: { route: any  }) => {
-  console.log(route)
+  const { direction, item } = route.params;
+
+
   return (
     <SafeAreaView style={styles.page}>
-      <Input value="0" onChange={() => {}} />
-      <List />
+      <Input value="0" />
+      <List direction={direction} item={item}/>
     </SafeAreaView>
   );
 };

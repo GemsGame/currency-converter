@@ -1,32 +1,25 @@
-import {createSlice} from '@reduxjs/toolkit';
-
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {ISetCurrency} from '../../interface/ISetCurrency';
+import { IListItem } from '../../interface/IListItem';
 export interface IConversionState {
-  from: string | null | number,
-  to: string | null | number,
-  amount: string | number | null,
+  from: null | IListItem;
+  to: null | IListItem;
 }
 
 export const initialState: IConversionState = {
-  from: 0,
-  to: 1,
-  amount: null,
+  from: null,
+  to: null,
 };
 
 export const conversionSlice = createSlice({
   name: 'conversion',
   initialState,
   reducers: {
-    setTo(state, action) {
-      state.to = action.payload;
-    },
-    setFrom(state, action) {
-      state.from = action.payload;
-    },
-    setAmount(state, action) {
-      state.amount = action.payload;
+    setCurrency(state, action: PayloadAction<ISetCurrency>) {
+      state[action.payload.direction] = action.payload.item;
     },
   },
 });
 
-export const { setTo, setFrom, setAmount } = conversionSlice.actions;
+export const {setCurrency} = conversionSlice.actions;
 export default conversionSlice.reducer;
