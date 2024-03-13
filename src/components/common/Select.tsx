@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import { IListItem } from '../../interface/IListItem';
+import {IListItem} from '../../interface/IListItem';
 
 const styles = StyleSheet.create({
   button: {
@@ -21,14 +21,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: '#000000',
   },
+  img: {
+    width: 30,
+    height: 20,
+  },
 });
 
-const Select = ({ onPress, item }: {onPress: any, item:IListItem }): React.JSX.Element => {
+const Select = ({
+  onPress,
+  item,
+}: {
+  onPress: any;
+  item: IListItem;
+}): React.JSX.Element => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.button}>
         <View>
-          <Image source={{ uri: item.flagSrc }} style={{ width: 30, height: 20 }} />
+          <Image source={{uri: item.flagSrc}} style={styles.img} />
         </View>
         <Text style={styles.buttonText}>{item.code}</Text>
         <View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import Select from '../common/Select';
 import Input from '../common/Input';
@@ -9,7 +9,12 @@ import {
 } from '@react-navigation/native';
 import IconButton from '../common/IconButton';
 import currencies from '../../configs/currencies.json';
-import {useAppSelector} from '../../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {
+  setCurrency,
+  invertCurrencies,
+  setAmount,
+} from '../../redux/slices/conversionSlice';
 
 const styles = StyleSheet.create({
   row: {
@@ -55,7 +60,28 @@ export const ConversionScreen = () => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const from = useAppSelector(state => state.conversion.from);
   const to = useAppSelector(state => state.conversion.to);
+  const amount = useAppSelector(state => state.conversion.amount);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (from === null) {
+      dispatch(
+        setCurrency({
+          direction: 'from',
+          item: currencies[0],
+        }),
+      );
+    }
+
+    if (to === null) {
+      dispatch(
+        setCurrency({
+          direction: 'to',
+          item: currencies[1],
+        }),
+      );
+    }
+  }, []);
   return (
     <SafeAreaView style={styles.page}>
       <View style={styles.row}>
@@ -73,7 +99,7 @@ export const ConversionScreen = () => {
         </View>
         <View style={styles.button}>
           <Text style={styles.label}></Text>
-          <IconButton onPress={() => {}} />
+          <IconButton onPress={() => dispatch(invertCurrencies())} />
         </View>
         <View style={styles.button}>
           <Text style={styles.label}>To:</Text>
@@ -91,11 +117,17 @@ export const ConversionScreen = () => {
       <View style={styles.row}>
         <View style={styles.input}>
           <Text style={styles.label}>Amount:</Text>
-          <Input value="0" onChange={() => {}} />
+          <Input
+            value={amount || ''}
+            onChange={e => dispatch(setAmount(e.nativeEvent.text))}
+          />
         </View>
       </View>
       <View style={styles.calculation}>
-        <Text style={styles.subtitle}>1$ =</Text>
+        <Text style={styles.subtitle}>
+          {amount}
+          {from?.symbol} =
+        </Text>
         <Text style={styles.title}>3,98 zl</Text>
       </View>
     </SafeAreaView>

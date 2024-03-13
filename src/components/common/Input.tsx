@@ -24,8 +24,9 @@ const Input = ({
 
     icon: {
       position: 'relative',
-      top: 37,
+      top: 34,
       left: 15,
+      zIndex: 1,
     },
   });
 
@@ -38,7 +39,7 @@ const Input = ({
       )}
       <TextInput
         style={styles.input}
-        onChange={e => onChange(e.nativeEvent.text)}
+        onChange={onChange}
         value={value}
         placeholder={placeholder}
       />

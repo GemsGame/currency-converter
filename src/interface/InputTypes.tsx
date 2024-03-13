@@ -1,9 +1,8 @@
-import {Dispatch, SetStateAction} from 'react';
-import {ImageSourcePropType} from 'react-native';
+import {ImageSourcePropType, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native';
 
 export type InputTypes = {
   value: string;
-  onChange: Dispatch<SetStateAction<string | undefined>>;
+  onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   placeholder?: string;
   icon?: ImageSourcePropType;
 };

@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const conversionPersistConfig = {
   key: 'conversion',
   storage: AsyncStorage,
+  blacklist: ['conversion']
 };
 
 const rootReducer = combineReducers({

@@ -11,7 +11,7 @@ import {
 import currencies from '../../configs/currencies.json';
 import Radio from './Radio';
 
-import {useAppDispatch} from '../../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {setCurrency} from '../../redux/slices/conversionSlice';
 import {ISetCurrency} from '../../interface/ISetCurrency';
 import {IListItem} from '../../interface/IListItem';
@@ -32,20 +32,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const MemoizedItem = React.memo(
-  ({
-    item,
-    direction,
-    activeItem,
-  }: {
-    item: IListItem;
-    direction: 'from' | 'to';
-    activeItem: IListItem;
-  }) => {
-    const dispatch = useAppDispatch();
+interface MemoizedItemProps {
+  item: IListItem;
+  isActive: boolean;
+  onPress: () => void;
+}
+
+const MemoizedItem: React.FC<MemoizedItemProps> = React.memo(
+  ({item, isActive, onPress}) => {
     const styles = StyleSheet.create({
       item: {
-        backgroundColor: '#E7E7E7',
+        backgroundColor: isActive ? '#DEDEDE' : '#E7E7E7',
         flexDirection: 'row',
         gap: 8,
         justifyContent: 'space-between',
@@ -64,24 +61,20 @@ const MemoizedItem = React.memo(
         fontSize: 16,
         color: 'black',
       },
+      img: {
+        width: 30, 
+        height: 20
+      }
     });
     return (
-      <Pressable
-        onPress={() =>
-          dispatch(
-            setCurrency({
-              direction,
-              item,
-            }),
-          )
-        }>
+      <Pressable onPress={onPress}>
         <View style={styles.item}>
           <View style={styles.nameBlock}>
             <View>
               <View>
                 <Image
                   source={{uri: item.flagSrc}}
-                  style={{width: 30, height: 20}}
+                  style={styles.img}
                 />
               </View>
             </View>
@@ -99,7 +92,7 @@ const MemoizedItem = React.memo(
             </View>
           </View>
           <View style={styles.buttonBlock}>
-            <Radio />
+            <Radio selected={isActive} onSelect={onPress} />
           </View>
         </View>
       </Pressable>
@@ -107,7 +100,10 @@ const MemoizedItem = React.memo(
   },
 );
 
-const List = ({ direction, item }: ISetCurrency) => {
+const List: React.FC<ISetCurrency> = ({direction}) => {
+  const activeItem = useAppSelector(state => state.conversion[direction]);
+  const dispatch = useAppDispatch();
+
   return (
     <View style={styles.container}>
       <View style={styles.list}>
@@ -115,7 +111,18 @@ const List = ({ direction, item }: ISetCurrency) => {
           data={currencies}
           contentContainerStyle={styles.contentContainerStyle}
           renderItem={({item}) => (
-            <MemoizedItem item={item} activeItem={item} direction={direction} />
+            <MemoizedItem
+              onPress={() =>
+                dispatch(
+                  setCurrency({
+                    direction,
+                    item,
+                  }),
+                )
+              }
+              isActive={item.code === activeItem?.code}
+              item={item}
+            />
           )}
         />
       </View>

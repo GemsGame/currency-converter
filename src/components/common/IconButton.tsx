@@ -1,18 +1,18 @@
 import React from 'react';
-import {Image, Pressable, StyleSheet, View} from 'react-native';
+import {GestureResponderEvent, Image, Pressable, View} from 'react-native';
 
-const styles = StyleSheet.create({
-  button: {
-    
-  },
-});
-
-const IconButton = ({onPress}: {onPress: any}): React.JSX.Element => {
+const IconButton = ({
+  onPress,
+}: {
+  onPress: (e: GestureResponderEvent) => void;
+}): React.JSX.Element => {
   return (
     <Pressable onPress={onPress}>
-      <View style={styles.button}>
+      <View>
         <View>
-          <Image source={require('../../assets/images/tabler_arrows-left-right.png')} />
+          <Image
+            source={require('../../assets/images/tabler_arrows-left-right.png')}
+          />
         </View>
       </View>
     </Pressable>
