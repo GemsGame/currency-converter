@@ -3,7 +3,8 @@ import {
   persistStore,
   persistReducer,
 } from 'redux-persist';
-import settingsReducer from './slices/conversionSlice';
+import conversionReducer from './slices/conversionSlice';
+import ratesReducer from './slices/ratesSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const conversionPersistConfig = {
@@ -11,9 +12,13 @@ const conversionPersistConfig = {
   storage: AsyncStorage,
   blacklist: ['conversion']
 };
-
+const ratesPersistConfig = {
+  key: 'rates',
+  storage: AsyncStorage,
+};
 const rootReducer = combineReducers({
-  conversion: persistReducer(conversionPersistConfig, settingsReducer),
+  conversion: persistReducer(conversionPersistConfig, conversionReducer),
+  rates: persistReducer(ratesPersistConfig, ratesReducer),
 });
 
 export const store = configureStore({

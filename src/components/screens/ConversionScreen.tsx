@@ -15,6 +15,7 @@ import {
   invertCurrencies,
   setAmount,
 } from '../../redux/slices/conversionSlice';
+import {getBaseRate} from '../../redux/slices/ratesSlice';
 
 const styles = StyleSheet.create({
   row: {
@@ -61,7 +62,14 @@ export const ConversionScreen = () => {
   const from = useAppSelector(state => state.conversion.from);
   const to = useAppSelector(state => state.conversion.to);
   const amount = useAppSelector(state => state.conversion.amount);
+  const currency = useAppSelector(state => state.rates.currency);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (from?.code) {
+      dispatch(getBaseRate(from.code));
+    }
+  }, [from, to, amount]);
 
   useEffect(() => {
     if (from === null) {
@@ -71,6 +79,7 @@ export const ConversionScreen = () => {
           item: currencies[0],
         }),
       );
+      dispatch(getBaseRate(currencies[0].code));
     }
 
     if (to === null) {
@@ -82,6 +91,7 @@ export const ConversionScreen = () => {
       );
     }
   }, []);
+
   return (
     <SafeAreaView style={styles.page}>
       <View style={styles.row}>
@@ -99,7 +109,9 @@ export const ConversionScreen = () => {
         </View>
         <View style={styles.button}>
           <Text style={styles.label}></Text>
-          <IconButton onPress={() => dispatch(invertCurrencies())} />
+          <IconButton
+            onPress={() => dispatch(invertCurrencies())}
+          />
         </View>
         <View style={styles.button}>
           <Text style={styles.label}>To:</Text>
@@ -128,7 +140,16 @@ export const ConversionScreen = () => {
           {amount}
           {from?.symbol} =
         </Text>
-        <Text style={styles.title}>3,98 zl</Text>
+        <Text style={styles.title}>
+          {(() => {
+            if (from?.code && to?.code && amount) {
+              const rate = currency[from?.code]?.rates[to?.code] || '0';
+              return (
+                (Number(rate) * Number(amount)).toFixed(2) + ' ' + to?.symbol
+              );
+            }
+          })()}
+        </Text>
       </View>
     </SafeAreaView>
   );
