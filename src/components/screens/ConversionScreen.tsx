@@ -16,6 +16,7 @@ import {
   setAmount,
 } from '../../redux/slices/conversionSlice';
 import {getBaseRate} from '../../redux/slices/ratesSlice';
+import {getCurrenciesList} from '../../redux/slices/currenciesSlice';
 
 const styles = StyleSheet.create({
   row: {
@@ -90,6 +91,8 @@ export const ConversionScreen = () => {
         }),
       );
     }
+
+    dispatch(getCurrenciesList());
   }, []);
 
   return (
@@ -109,9 +112,7 @@ export const ConversionScreen = () => {
         </View>
         <View style={styles.button}>
           <Text style={styles.label}></Text>
-          <IconButton
-            onPress={() => dispatch(invertCurrencies())}
-          />
+          <IconButton onPress={() => dispatch(invertCurrencies())} />
         </View>
         <View style={styles.button}>
           <Text style={styles.label}>To:</Text>

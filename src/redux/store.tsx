@@ -6,6 +6,7 @@ import {
 import conversionReducer from './slices/conversionSlice';
 import ratesReducer from './slices/ratesSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import currenciesSlice from './slices/currenciesSlice';
 
 const conversionPersistConfig = {
   key: 'conversion',
@@ -16,8 +17,13 @@ const ratesPersistConfig = {
   key: 'rates',
   storage: AsyncStorage,
 };
+const currenciesPersistConfig = {
+  key: 'currencies',
+  storage: AsyncStorage,
+};
 const rootReducer = combineReducers({
   conversion: persistReducer(conversionPersistConfig, conversionReducer),
+  currencies: persistReducer(currenciesPersistConfig, currenciesSlice),
   rates: persistReducer(ratesPersistConfig, ratesReducer),
 });
 
