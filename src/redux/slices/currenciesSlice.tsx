@@ -14,11 +14,12 @@ export const initialState: ICurrenciesState = {
 
 export const getCurrenciesList = createAsyncThunk<IListItem[]>(
   'rates/getCurrenciesList',
-  async () => {
+  async (_, {rejectWithValue}) => {
     try {
       return await vatApi.getCurrenciesList();
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      const error = err as Error;
+      return rejectWithValue(error.message);
     }
   },
 );

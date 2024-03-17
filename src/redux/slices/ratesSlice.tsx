@@ -27,11 +27,12 @@ export const initialState: IRatesState = {
 
 export const getBaseRate = createAsyncThunk<ICurrencyBase, string>(
   'rates/getBaseRate',
-  async base => {
+  async (base, {rejectWithValue}) => {
     try {
       return await vatApi.getBaseRate(base);
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      const error = err as Error;
+      return rejectWithValue(error.message);
     }
   },
 );

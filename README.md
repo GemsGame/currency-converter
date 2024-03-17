@@ -32,3 +32,34 @@ known rates.
 * App performance and handling of edge cases.
 * Completeness of the implemented features.
 * Any additional features or touches that improve the app's usability or user experience.
+
+### Getting Started
+
+### Step 1: clone and install
+
+```
+git clone https://github.com/GemsGame/react-native-currency-converter.git
+```
+```
+cd react-native-currency-converter
+```
+```
+npm install
+```
+### Step 2: Start the App
+Let Metro Bundler run in its own terminal. Open a new terminal from the root of your React Native project. Run the following command to start your Android or iOS app:
+
+```
+npm run android
+```
+```
+npm run ios
+```
+
+If everything is set up correctly, you should see your new app running in your Android Emulator or iOS Simulator shortly provided you have set up your emulator/simulator correctly.
+
+This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+
+
+### Explanation about arhitecture
+
