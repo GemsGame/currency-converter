@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Select from '../common/Select';
 import Input from '../common/Input';
 import {
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   },
   page: {
     padding: 20,
-    gap: 16,
   },
   input: {
     width: '100%',
@@ -55,6 +54,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontSize: 42,
     color: 'black',
+  },
+  content: {
+    paddingTop: '50%',
+    gap: 16,
   },
 });
 
@@ -96,62 +99,64 @@ export const ConversionScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.page}>
-      <View style={styles.row}>
-        <View style={styles.button}>
-          <Text style={styles.label}>From:</Text>
-          <Select
-            onPress={() =>
-              navigation.navigate('Currency Select', {
-                direction: 'from',
-                item: from || currencies[0],
-              })
-            }
-            item={from || currencies[0]}
-          />
+    <View style={styles.page}>
+      <View style={styles.content}>
+        <View style={styles.row}>
+          <View style={styles.button}>
+            <Text style={styles.label}>From:</Text>
+            <Select
+              onPress={() =>
+                navigation.navigate('Currency Select', {
+                  direction: 'from',
+                  item: from || currencies[0],
+                })
+              }
+              item={from || currencies[0]}
+            />
+          </View>
+          <View style={styles.button}>
+            <Text style={styles.label}></Text>
+            <IconButton onPress={() => dispatch(invertCurrencies())} />
+          </View>
+          <View style={styles.button}>
+            <Text style={styles.label}>To:</Text>
+            <Select
+              onPress={() =>
+                navigation.navigate('Currency Select', {
+                  direction: 'to',
+                  item: to || currencies[1],
+                })
+              }
+              item={to || currencies[1]}
+            />
+          </View>
         </View>
-        <View style={styles.button}>
-          <Text style={styles.label}></Text>
-          <IconButton onPress={() => dispatch(invertCurrencies())} />
+        <View style={styles.row}>
+          <View style={styles.input}>
+            <Text style={styles.label}>Amount:</Text>
+            <Input
+              value={amount || ''}
+              onChange={e => dispatch(setAmount(e.nativeEvent.text))}
+            />
+          </View>
         </View>
-        <View style={styles.button}>
-          <Text style={styles.label}>To:</Text>
-          <Select
-            onPress={() =>
-              navigation.navigate('Currency Select', {
-                direction: 'to',
-                item: to || currencies[1],
-              })
-            }
-            item={to || currencies[1]}
-          />
+        <View style={styles.calculation}>
+          <Text style={styles.subtitle}>
+            {amount}
+            {from?.symbol} =
+          </Text>
+          <Text style={styles.title}>
+            {(() => {
+              if (from?.code && to?.code && amount) {
+                const rate = currency[from?.code]?.rates[to?.code] || '0';
+                return (
+                  (Number(rate) * Number(amount)).toFixed(2) + ' ' + to?.symbol
+                );
+              }
+            })()}
+          </Text>
         </View>
       </View>
-      <View style={styles.row}>
-        <View style={styles.input}>
-          <Text style={styles.label}>Amount:</Text>
-          <Input
-            value={amount || ''}
-            onChange={e => dispatch(setAmount(e.nativeEvent.text))}
-          />
-        </View>
-      </View>
-      <View style={styles.calculation}>
-        <Text style={styles.subtitle}>
-          {amount}
-          {from?.symbol} =
-        </Text>
-        <Text style={styles.title}>
-          {(() => {
-            if (from?.code && to?.code && amount) {
-              const rate = currency[from?.code]?.rates[to?.code] || '0';
-              return (
-                (Number(rate) * Number(amount)).toFixed(2) + ' ' + to?.symbol
-              );
-            }
-          })()}
-        </Text>
-      </View>
-    </SafeAreaView>
+    </View>
   );
 };

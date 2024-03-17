@@ -15,9 +15,8 @@ export class VatcomplyAPI {
       } else {
         return result.json();
       }
-    } catch (err: unknown) {
-      const error = err as Error;
-      throw new Error(error.message);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -29,9 +28,8 @@ export class VatcomplyAPI {
       } else {
         return result.json();
       }
-    } catch (err: unknown) {
-      const error = err as Error;
-      throw new Error(error.message);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -43,9 +41,8 @@ export class VatcomplyAPI {
       } else {
         return result.json();
       }
-    } catch (err: unknown) {
-      const error = err as Error;
-      throw new Error(error.message);
+    } catch (err) {
+      throw err;
     }
   }
 }

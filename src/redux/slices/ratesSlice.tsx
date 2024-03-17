@@ -43,8 +43,7 @@ const ratesSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(getBaseRate.fulfilled, (state, action) => {
-      state.currency[action.payload.base as keyof ICurrencyBase] =
-        action.payload;
+      state.currency[action.payload.base] = action.payload;
     });
   },
 });

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   list: {
-    height: height - 180,
+    height: height - 155,
   },
   contentContainerStyle: {
     borderRadius: 8,

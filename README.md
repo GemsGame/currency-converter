@@ -63,3 +63,19 @@ This is one way to run your app — you can also run it directly from within And
 
 ### Explanation about arhitecture
 
+In the project, I have been using the Flux architecture for state management, which ensures that data flows in a one-way direction. This is the most popular and best practice solution when we are talking about data managment in the web/mob applications on React Native. The important libraries for this are: 
+
+* react-redux
+* @reduxjs/toolkit
+
+Also we need a local database for a data saving and offline mode and synchronization tool. We should provide data updation between a database and temporary local storage. 
+
+* @react-native-async-storage/async-storage
+* redux-persist
+
+As you can see, the app has another dependencies which must be include to our buiild. Witout it we can't to use navigation, screens.
+
+* @react-navigation/native
+* @react-navigation/native-stack
+
+
