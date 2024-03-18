@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {GestureResponderEvent, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {IListItem} from '../../interface/IListItem';
 
 const styles = StyleSheet.create({
@@ -31,7 +31,7 @@ const Select = ({
   onPress,
   item,
 }: {
-  onPress: any;
+  onPress: (e: GestureResponderEvent) => void;
   item: IListItem;
 }): React.JSX.Element => {
   return (
